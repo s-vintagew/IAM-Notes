@@ -1,0 +1,69 @@
+Important Commands
+
+cd /opt/ibm/ldap/V6.4/sbin/
+/opt/ibm/ldap/V6.4/sbin/idsilist -a
+
+./idsadduser -> script to add user
+./idsadduser -u idsldap1 -w P@ssw0rd -l /home/idsldap1 -g idsldap -n
+
+./idsicrt -> creates instance of the User
+./idsicrt -I idsldap2 -e encryptionseed -l /home/idsldap2
+
+After any script -? displays the man page
+
+./idscfgdb -> connect to the server and create a database, assign admin id/password/instance name/location etc.
+./idscfgdb -I idsldap1 -w P@ssw0rd -a idsldap1 -t idsldap1 -l /home/idsldap1 -n
+
+
+./idsdnpw -I idsldap3 -u cn=root -p P@ssw0rd -n (Assign root password to server instance) 
+
+./ibmslapd -I idsldap -k -> stop server instance
+./ibmslapd -I idsldap -n -t -> start an instance
+
+https://www.techtarget.com/searchmobilecomputing/definition/LDAP#:~:text=LDAP%20(Lightweight%20Directory%20Access%20Protocol)%20is%20a%20software%20protocol%20for,or%20on%20a%20corporate%20Intranet. (study material)
+
+./idscfgsuf -I idsldap1 -s "o=GUNI" -> for creating suffix/organization base
+
+cd .. /bin
+
+./idsldapadd -D cn=root -w P@ssw0rd -p 1389
+
+[
+dn : o=guni
+objectclass: organization
+objectclass: top
+o: guni
+]
+
+cd /classfiles/
+vim User1.ldif
+
+[
+dn : cn=jayesh, o=guni
+objectclass: person
+objectclass: top
+sn: sheth
+
+dn: cn=keshav, o=guni
+objectclass: person
+objectclass:top
+sn: patel
+]
+bin/ : idsldapadd -D cn=root -w P@ssw0rd -p 1389 -i /classfiles/User1.ldif
+
+doing the same using ldap browser
+cd /classfiles/
+vim User2.ldif
+[
+dn: cn=danish,o=guni
+objectclass: person
+objectclass: top
+sn: smith
+cn: danish
+
+dn: cn=logan,o=guni
+objectclass: person
+objectclass: top
+sn: wolter
+cn: logan
+]
